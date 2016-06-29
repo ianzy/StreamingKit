@@ -1042,6 +1042,30 @@ static void AudioFileStreamPacketsProc(void* clientData, UInt32 numberBytes, UIn
     return retval;
 }
 
+-(float) rate
+{
+    AudioUnitParameterValue rateValue;
+      AudioUnitGetParameter(playbackRateUnit, kNewTimePitchParam_Rate, kAudioUnitScope_Global, 0, &rateValue);
+        return rateValue;
+}
+
+-(void) setRate:(float)rate
+{
+    AudioUnitSetParameter(playbackRateUnit, kNewTimePitchParam_Rate, kAudioUnitScope_Global, 0, rate, 0);
+}
+
+-(float) overlap
+{
+    AudioUnitParameterValue overlapValue;
+      AudioUnitGetParameter(playbackRateUnit, kNewTimePitchParam_Overlap, kAudioUnitScope_Global, 0, &overlapValue);
+        return overlapValue;
+}
+
+-(void) setOverlap:(float)overlap
+{
+    AudioUnitSetParameter(playbackRateUnit, kNewTimePitchParam_Overlap, kAudioUnitScope_Global, 0, overlap, 0);
+}
+
 -(BOOL) invokeOnPlaybackThread:(void(^)())block
 {
 	NSRunLoop* runLoop = playbackThreadRunLoop;
